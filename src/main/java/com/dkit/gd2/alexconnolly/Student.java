@@ -1,20 +1,22 @@
 package com.dkit.gd2.alexconnolly;
 
+import java.lang.reflect.Array;
+
 public class Student
 {
     private String name;
-    private String ID;
+    private static String ID;
     private String email;
     private String telephone;
-    private String loan;
+    private Array loans;
 
-    public Student(String name, String ID, String email, String telephone, String loan)
+    public Student(String name, String ID, String email, String telephone, Array loan)
     {
         this.name = name;
         this.ID = ID;
         this.email = email;
         this.telephone = telephone;
-        this.loan = loan;
+        this.loans = loans;
     }
 
     public String getName()
@@ -22,7 +24,7 @@ public class Student
         return name;
     }
 
-    public String getID()
+    public static String getID()
     {
         return ID;
     }
@@ -37,9 +39,9 @@ public class Student
         return telephone;
     }
 
-    public String getLoan()
+    public Array getLoans()
     {
-        return loan;
+        return loans;
     }
 
     public void newStudent()
@@ -47,7 +49,12 @@ public class Student
 
     }
 
-    public void editStudent()
+    public static void addStudent()
+    {
+
+    }
+
+    public static void editStudent()
     {
 
     }

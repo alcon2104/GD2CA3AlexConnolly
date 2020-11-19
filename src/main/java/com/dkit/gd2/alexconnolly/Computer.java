@@ -7,7 +7,7 @@ public class Computer
     private int ramSize;
     private int diskSize;
     private double weight;
-    private String assetTag;
+    private static String assetTag;
     private String purchaseDate;
 
     public Computer(String manufacturer, String processor, int ramSize,
@@ -47,7 +47,7 @@ public class Computer
         return weight;
     }
 
-    public String getAssetTag()
+    public static String getAssetTag()
     {
         return assetTag;
     }

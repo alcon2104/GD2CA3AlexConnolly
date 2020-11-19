@@ -16,9 +16,10 @@ public class Bookings
         this.bookDateTime = bookDateTime;
         this.returnDateTime = returnDateTime;
         this.computerType = computerType;
-        this.assetTag = assetTag;
-        this.studentID = studentID;
+        this.assetTag = Computer.getAssetTag();
+        this.studentID = Student.getID();
     }
+
 
     public int getBookingID()
     {
@@ -50,38 +51,48 @@ public class Bookings
         return studentID;
     }
 
-    public void newBooking()
+    public static void addBooking() {
+    }
+
+    public static void editBooking()
     {
 
     }
 
-    public void editBooking()
+    public static void printBookings()
     {
 
     }
 
-    public void printAllBookings()
+    public static void printBookingsOneStudent()
     {
 
     }
 
-    public void printAllBookingsOrderedForStudent()
+    public static void returnComputer()
     {
 
     }
 
-    public void returnComputer()
+    public static void bookingLength()
     {
 
     }
 
-    public void bookingLength()
+    public static void findNumComputersBooked()
     {
 
     }
 
-    public void numComputersBooked()
-    {
-
+    @Override
+    public String toString() {
+        return "Bookings{" +
+                "bookingID=" + bookingID +
+                ", bookDateTime='" + bookDateTime + '\'' +
+                ", returnDateTime='" + returnDateTime + '\'' +
+                ", computerType='" + computerType + '\'' +
+                ", assetTag='" + assetTag + '\'' +
+                ", studentID='" + studentID + '\'' +
+                '}';
     }
 }
