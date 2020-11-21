@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class App 
 {
     private static Scanner keyboard = new Scanner(System.in);
-    public static void main( String[] args )
+    public static void main()
     {
         System.out.println("Welcome to the computer booking system!\nSelect one of the options below:");
 
