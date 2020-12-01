@@ -23,7 +23,7 @@ public class Student
         this.loans = loans;
     }
 
-    public String getName()
+    public static String getName()
     {
         return name;
     }
@@ -33,17 +33,17 @@ public class Student
         return ID;
     }
 
-    public String getEmail()
+    public static String getEmail()
     {
         return email;
     }
 
-    public String getTelephone()
+    public static String getTelephone()
     {
         return telephone;
     }
 
-    public ArrayList getLoans()
+    public static ArrayList getLoans()
     {
         return loans;
     }
@@ -70,13 +70,16 @@ public class Student
 
     public static void addStudent()
     {
-        //read file
         System.out.println("Please Enter the new Student's details below, after every new detail, please press enter");
+        System.out.println("Name:");
         String newName = keyboard.nextLine();
+        System.out.println("ID:");
         String newID = keyboard.nextLine();
+        System.out.println("Email:");
         String newEmail = keyboard.nextLine();
+        System.out.println("Phone Number");
         String newTelephone = keyboard.nextLine();
-        System.out.println("Please enter each loan individually. If there is no loans, enter nothing");
+        System.out.println("If there are no loans, enter nothing");
         String newLoan = keyboard.nextLine();
         if(newLoan == null)
         {
@@ -91,75 +94,80 @@ public class Student
         //Write to file
     }
 
-    public static void editStudent()
+    public static void editStudent() {
+        System.out.println("Enter the ID of the student you wish to edit");
+        String ID = keyboard.nextLine();
+        try {
+            System.out.println("Select the entry you'd like to change\n1 - ID \t2 - Name\t3 - Email\t4 - Telephone");
+            EditStudentOptions selected = EditStudentOptions.CONTINUE;
+            selected = EditStudentOptions.values()[Integer.parseInt(keyboard.nextLine().trim())];
+            switch (selected) {
+                case ID:
+                    System.out.println("Enter the new ID");
+                    String newID = keyboard.nextLine();
+                    //.getID().setID(newID);
+
+                case NAME:
+                    System.out.println("Enter the new Name");
+                    String newName = keyboard.nextLine();
+                    //.getID().setName(newName);
+
+                case EMAIL:
+                    System.out.println("Enter the new Email");
+                    String newEmail = keyboard.nextLine();
+                    //.getID().setEmail(newEmail);
+
+                case TELEPHONE:
+                    System.out.println("Enter the new Telephone");
+                    String newTelephone = keyboard.nextLine();
+                    //.getID().setTelephone(newTelephone);
+            }
+        }
+        catch (IllegalArgumentException e)
+        {
+            System.out.println("Selection out of range, try again");
+        }
+        catch (ArrayIndexOutOfBoundsException e)
+        {
+            System.out.println("Selection out of range, try again");
+        }
+    }
+
+
+    public static void deleteStudent()
     {
-        System.out.println("Enter the ID of the student you wish to edit, then select which action you'd like to take");
-        String editID = keyboard.nextLine();
-        System.out.println("1 - Edit details\t2 - Delete Student");
-        int ans = keyboard.nextInt();
+        System.out.println("Enter the ID of the student you wish to delete");
+        String ID = keyboard.nextLine();
         try
         {
-            if (ans == 1) {
-                System.out.println("Select the entry you'd like to change\n1 - ID \t2 - Name\t3 - Email\t4 - Telephone");
-                EditStudentOptions selected = EditStudentOptions.CONTINUE;
-                selected = EditStudentOptions.values()[Integer.parseInt(keyboard.nextLine().trim())];
-                switch (selected) {
-                    case ID:
-                        System.out.println("Enter the new ID");
-                        String newID = keyboard.nextLine();
-                        //.getID().setID(newID);
-
-                    case NAME:
-                        System.out.println("Enter the new Name");
-                        String newName = keyboard.nextLine();
-                        //.getID().setName(newName);
-
-                    case EMAIL:
-                        System.out.println("Enter the new Email");
-                        String newEmail = keyboard.nextLine();
-                        //.getID().setEmail(newEmail);
-
-                    case TELEPHONE:
-                        System.out.println("Enter the new Telephone");
-                        String newTelephone = keyboard.nextLine();
-                        //.getID().setTelephone(newTelephone);
-                }
+            System.out.println("Are you sure you want to delete the student?\n1 - Yes\t2 - No");
+            int delete = keyboard.nextInt();
+            keyboard.nextLine();
+            if (delete == 1)
+            {
+                //delete the poor kid
+                System.out.println("The student has been deleted.");
+                System.out.println("Returning you to the main menu...");
             }
-            else if (ans == 2) {
-                try
-                {
-                    System.out.println("Are you sure you want to delete the student?\n1 - Yes\t2 - No");
-                    int delete = keyboard.nextInt();
-                    if (delete == 1)
-                    {
-                        //delete the poor kid
-                        System.out.println("The student has been deleted.");
-                        System.out.println("Returning you to the main menu...");
-                    }
-                    else if (delete == 2)
-                    {
-                        System.out.println("Returning you to the main menu...");
-                        App.main();
-                    }
-                }
-                catch(IllegalArgumentException e)
-                {
-                    System.out.println("Selection out of range, try again");
-                }
-                catch(ArrayIndexOutOfBoundsException e)
-                {
-                    System.out.println("Selection out of range, try again");
-                }
+            else if (delete == 2)
+            {
+                System.out.println("Returning you to the main menu...");
             }
         }
-        catch(IllegalArgumentException e)
+        catch (IllegalArgumentException e)
         {
             System.out.println("Selection out of range, try again");
         }
-        catch(ArrayIndexOutOfBoundsException e)
+        catch (ArrayIndexOutOfBoundsException e)
         {
             System.out.println("Selection out of range, try again");
         }
+    }
 
+    public static void printStudent()
+    {
+        System.out.println("Enter the ID of the student you wish to view");
+        String ID = keyboard.nextLine();
     }
 }
+

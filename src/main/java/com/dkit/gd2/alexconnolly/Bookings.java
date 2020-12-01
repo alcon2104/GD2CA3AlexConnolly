@@ -98,73 +98,45 @@ public class Bookings
 
     public static void editBooking()
     {
-        System.out.println("Enter the asset tag of the computer you wish to edit, then select which action you'd like to take");
-        String editTag = keyboard.nextLine();
-        System.out.println("1 - Edit details\t2 - Delete Student");
-        int ans = keyboard.nextInt();
+        System.out.println("Enter the ID of the booking you wish to edit");
+        String ID = keyboard.nextLine();
         try
         {
-            if (ans == 1) {
-                System.out.println("Select the entry you'd like to change\n1 - ID \t2 - Book date/time\t3 - Return date/time\t4 - Computer type\n5 - Asset tag\t6 - Student ID");
-                EditBookingOptions selected = EditBookingOptions.CONTINUE;
-                selected = EditBookingOptions.values()[Integer.parseInt(keyboard.nextLine().trim())];
-                switch (selected) {
-                    case ID:
-                        System.out.println("Enter the new ID");
-                        String newID = keyboard.nextLine();
-                        //.getAssetTag().setID(newID);
+            System.out.println("Select the entry you'd like to change\n1 - ID \t2 - Book date/time\t3 - Return date/time\t4 - Computer type\n5 - Asset tag\t6 - Student ID");
+            EditBookingOptions selected = EditBookingOptions.CONTINUE;
+            selected = EditBookingOptions.values()[Integer.parseInt(keyboard.nextLine().trim())];
+            switch (selected)
+            {
+                case ID:
+                    System.out.println("Enter the new ID");
+                    String newID = keyboard.nextLine();
+                    //.getAssetTag().setID(newID);
 
-                    case BOOK_DATE_TIME:
-                        System.out.println("Enter the new Book date/time");
-                        String newBook = keyboard.nextLine();
-                        //.getAssetTag().setBookDateTime(newBook);
+                case BOOK_DATE_TIME:
+                    System.out.println("Enter the new Book date/time");
+                    String newBook = keyboard.nextLine();
+                    //.getAssetTag().setBookDateTime(newBook);
 
-                    case RETURN_DATE_TIME:
-                        System.out.println("Enter the new Return date/time");
-                        String newReturn = keyboard.nextLine();
-                        //.getAssetTag().setReturnDateTime(newReturn);
+                case RETURN_DATE_TIME:
+                    System.out.println("Enter the new Return date/time");
+                    String newReturn = keyboard.nextLine();
+                    //.getAssetTag().setReturnDateTime(newReturn);
 
-                    case COMPUTER_TYPE:
-                        System.out.println("Enter the new Computer type");
-                        String newType = keyboard.nextLine();
-                        //.getAssetTag().setComputerType(newType);
+                case COMPUTER_TYPE:
+                    System.out.println("Enter the new Computer type");
+                    String newType = keyboard.nextLine();
+                    //.getAssetTag().setComputerType(newType);
 
-                    case ASSET_TAG:
-                        System.out.println("Enter the new asset tag");
-                        String newTag = keyboard.nextLine();
-                        //.getAssetTag().setTag(newTelephone);
+                case ASSET_TAG:
+                    System.out.println("Enter the new asset tag");
+                    String newTag = keyboard.nextLine();
+                    //.getAssetTag().setTag(newTelephone);
 
-                    case STUDENT_ID:
-                        System.out.println("Enter the new Student ID");
-                        String newStudID= keyboard.nextLine();
-                        //.getAssetTag().setTelephone(newStudID);
-                }
-            }
-            else if (ans == 2) {
-                try
-                {
-                    System.out.println("Are you sure you want to delete the Booking?\n1 - Yes\t2 - No");
-                    int delete = keyboard.nextInt();
-                    if (delete == 1)
-                    {
-                        //delete the booking
-                        System.out.println("The booking has been deleted.");
-                        System.out.println("Returning you to the main menu...");
-                    }
-                    else if (delete == 2)
-                    {
-                        System.out.println("Returning you to the main menu...");
-                        App.main();
-                    }
-                }
-                catch(IllegalArgumentException e)
-                {
-                    System.out.println("Selection out of range, try again");
-                }
-                catch(ArrayIndexOutOfBoundsException e)
-                {
-                    System.out.println("Selection out of range, try again");
-                }
+                case STUDENT_ID:
+                    System.out.println("Enter the new Student ID");
+                    String newStudID= keyboard.nextLine();
+                    //.getAssetTag().setTelephone(newStudID);
+
             }
         }
         catch(IllegalArgumentException e)
@@ -176,6 +148,35 @@ public class Bookings
             System.out.println("Selection out of range, try again");
         }
 
+    }
+
+    public static void deleteBooking()
+    {
+        System.out.println("Enter the ID of the booking you wish to edit");
+        String ID = keyboard.nextLine();
+        try
+        {
+            System.out.println("Are you sure you want to delete the Booking?\n1 - Yes\t2 - No");
+            int delete = keyboard.nextInt();
+            if (delete == 1)
+            {
+                //delete the booking
+                System.out.println("The booking has been deleted.");
+                System.out.println("Returning you to the main menu...");
+            }
+            else if (delete == 2)
+            {
+                System.out.println("Returning you to the main menu...");
+            }
+        }
+        catch(IllegalArgumentException e)
+        {
+            System.out.println("Selection out of range, try again");
+        }
+        catch(ArrayIndexOutOfBoundsException e)
+        {
+            System.out.println("Selection out of range, try again");
+        }
     }
 
     public static void printBookings()
@@ -209,7 +210,7 @@ public class Bookings
                 else if(ans == 2)
                 {
                     System.out.println("Returning you to the main menu...");
-                    App.main();
+                    //App.main();
                 }
             }
             catch(IllegalArgumentException e)
