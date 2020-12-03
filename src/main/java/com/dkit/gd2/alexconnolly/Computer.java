@@ -61,7 +61,7 @@ public class Computer
 
 //    public static String generateAssetTag()
 //    {
-//        if(Computer.getAssetTag() == null)
+//        if(Computer.getAssetTag() == "")
 //        {
 //            Random rand = new Random();
 //            int lowerBound = 10000;

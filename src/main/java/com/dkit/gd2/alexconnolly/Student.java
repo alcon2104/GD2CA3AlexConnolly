@@ -12,9 +12,18 @@ public class Student
     private static String ID;
     private String email;
     private String telephone;
-    private ArrayList loans;
+    private ArrayList<String> loans;
 
-    public Student(String name, String ID, String email, String telephone, ArrayList loan)
+    public Student(String name, String ID, String email, String telephone)
+    {
+        this.name = name;
+        this.ID = ID;
+        this.email = email;
+        this.telephone = telephone;
+        this.loans = new ArrayList();
+    }
+
+    public Student(String name, String ID, String email, String telephone, ArrayList<String> loans)
     {
         this.name = name;
         this.ID = ID;
@@ -23,27 +32,27 @@ public class Student
         this.loans = loans;
     }
 
-    public static String getName()
+    public String getName()
     {
         return name;
     }
 
-    public static String getID()
+    public String getID()
     {
         return ID;
     }
 
-    public static String getEmail()
+    public String getEmail()
     {
         return email;
     }
 
-    public static String getTelephone()
+    public String getTelephone()
     {
         return telephone;
     }
 
-    public static ArrayList getLoans()
+    public ArrayList getLoans()
     {
         return loans;
     }
@@ -83,13 +92,13 @@ public class Student
         String newLoan = keyboard.nextLine();
         if(newLoan == null)
         {
-            Student newStudent = new Student(newName, newID, newEmail, newTelephone, null );
-
+            Student newStudent = new Student(newName, newID, newEmail, newTelephone);
         }
         else
         {
-            //Student newStudent = new Student(newName, newID, newEmail, newTelephone, loans.add(newLoan));
-
+            //ArrayList<String> newLoans = new ArrayList<>();
+            //newLoans.add(newLoan);
+            //Student newStudent = new Student(newName, newID, newEmail, newTelephone, newLoans);
         }
         //Write to file
     }

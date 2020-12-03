@@ -206,45 +206,38 @@ public class App
         }
     }
 
-    private void readFromFile(String fileName, String section)
+    private void readFromStudents()
     {
-        try(Scanner fileScanner = new Scanner(new BufferedReader(new FileReader("StudentBookings.txt"))))
+        try(Scanner fileScanner = new Scanner(new BufferedReader(new FileReader("Students.txt"))))
         {
 
-            while(fileScanner.hasNextLine())
-            {
-                String input = fileScanner.nextLine();
-                String[] data = input.split(",");
-                if(section == "student")
-                {
-                    String name = data[0];
-                    String ID = data[1];
-                    String email = data[2];
-                    String telephone = data[3];
-                    //ArrayList loans = data[4];
-                }
 
-                else if(section == "Computer")
-                {
-                    String manufacturer = data[0];
-                    String processor = data[1];
-                    int ramSize = Integer.parseInt(data[2]);
-                    int diskSize = Integer.parseInt(data[3]);
-                    double weight = Double.parseDouble(data[4]);
-                    String assetTag = data[5];
-                    String purchaseDate = data[6];
-                }
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
-                else if(section == "Bookings")
-                {
-                    int bookingID = Integer.parseInt(data[0]);
-                    String bookDateTime = data[1];
-                    String returnDateTime = data[2];
-                    String computerType = data[3];
-                    String assetTag = data[4];
-                    String studentID = data[5];
-                }
-            }
+    public static void readFromBookings()
+    {
+        try(Scanner fileScanner = new Scanner(new BufferedReader(new FileReader("Bookings.txt"))))
+        {
+
+
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void readFromComputers()
+    {
+        try(Scanner fileScanner = new Scanner(new BufferedReader(new FileReader("Computers.txt"))))
+        {
+
+
         }
         catch (FileNotFoundException e)
         {
@@ -256,10 +249,7 @@ public class App
     {
         try(BufferedWriter StudBookingsFile = new BufferedWriter(new FileWriter("StudentBookings.txt"));)
         {
-            for(Student student: students.values())
-            {
-                StudBookingsFile.write(Student.getName(), Student.getID(), Student.getEmail(), Student.getTelephone(), Student.getLoans());
-            }
+
         }
         catch (IOException e) {
             e.printStackTrace();

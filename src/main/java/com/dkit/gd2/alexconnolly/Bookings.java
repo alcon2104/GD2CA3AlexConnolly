@@ -21,7 +21,7 @@ public class Bookings
         this.returnDateTime = returnDateTime;
         this.computerType = computerType;
         this.assetTag = Computer.getAssetTag();
-        this.studentID = Student.getID();
+        this.studentID = studentID;
     }
 
 
@@ -181,15 +181,13 @@ public class Bookings
 
     public static void printBookings()
     {
-        //read file in
-
-
+        App.readFromBookings();
     }
 
     public static void printBookingsOneStudent()
     {
         //read file in
-
+        //check if the student id is anywhere in the file. If it is, print out that record
     }
 
     public static void returnComputer()
