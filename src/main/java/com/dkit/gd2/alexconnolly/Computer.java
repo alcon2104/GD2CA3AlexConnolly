@@ -59,25 +59,25 @@ public class Computer
         return purchaseDate;
     }
 
-//    public static String generateAssetTag()
-//    {
-//        if(Computer.getAssetTag() == "")
-//        {
-//            Random rand = new Random();
-//            int lowerBound = 10000;
-//            int higherBound = 99999;
-//            String newAssetTag = "DKIT-" + rand.nextInt(higherBound - lowerBound);
-//            System.out.println(newAssetTag);
-//            App.readFile("Students");
-//            //if(newAssetTag == any other asset tag that exists already)
-//            {
-//                return null;
-//            }
-//            else
-//            {
-//                return newAssetTag;
-//            }
-//        }
-//        return null;
-//    }
+    public static String generateAssetTag()
+    {
+        //if(Computer.getAssetTag() == )
+        {
+            Random rand = new Random();
+            int lowerBound = 10000;
+            int higherBound = 99999;
+            String newAssetTag = "DKIT-" + rand.nextInt(higherBound - lowerBound);
+            System.out.println(newAssetTag);
+            //computers arraylist
+            //if(newAssetTag == )
+            {
+                return null;
+            }
+            //else
+            //{
+                //return newAssetTag;
+            //}
+        }
+        //return null;
+    }
 }
