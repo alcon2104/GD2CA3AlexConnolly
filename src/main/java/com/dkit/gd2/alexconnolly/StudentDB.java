@@ -11,7 +11,7 @@ public class StudentDB
     private ArrayList<Student> students;
     private static Scanner keyboard = new Scanner(System.in);
 
-    public StudentDB(ArrayList<Student> students)
+    public StudentDB()
     {
         this.students = students;
     }

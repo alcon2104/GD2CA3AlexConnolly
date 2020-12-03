@@ -8,9 +8,28 @@ import java.util.*;
  *
  */
 public class App {
-    private static Scanner keyboard = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    private static Scanner keyboard = new Scanner(System.in);
+    public static void main( String[] args )
+    {
+        App playerDBApp = new App();
+        playerDBApp.start();
+    }
+
+    private void start()
+    {
+        System.out.println("This is an application!");
+        StudentDB studentDB = new StudentDB();
+        BookingsDB bookingsDB = new BookingsDB();
+        ComputersDB computersDB = new ComputersDB();
+        studentDB.loadStudentsFromFile();
+        BookingsDB.loadBookingsFromFile();
+        ComputersDB.loadComputersFromFile();
+        doMainMenuLoop(studentDB, bookingsDB, computersDB);
+    }
+
+    private void doMainMenuLoop(StudentDB studentDB, BookingsDB bookingsDB, ComputersDB computersDB)
+    {
         System.out.println(Colours.GREEN+"Welcome to the Student Computer Bookings Application (SCMA)!"+Colours.RESET);
         boolean loop = true;
         MenuOptions menuChoice;
@@ -28,10 +47,10 @@ public class App {
                         loop = false;
                         break;
                     case STUDENT_MENU:
-                        Student.addStudent();
+                        studentMenu();
                         break;
                     case BOOKINGS_MENU:
-                        Bookings.addBooking();
+                        bookingsMenu();
                         break;
                     default:
                         System.out.println("Selection out of range, please try again");
@@ -66,12 +85,14 @@ public class App {
                     case QUIT:
                         loop = false;
                         break;
+                    case ADD_STUDENT:
+                        Student.add();
                     case EDIT_STUDENT:
-                        Student.editStudent();
+                        Student.edit();
                     case DELETE_STUDENT:
-                        Student.deleteStudent();
+                        Student.delete();
                     case PRINT_STUDENT:
-                        Student.printStudent();
+                        Student.print();
                     default:
                         System.out.println("Selection out of range, please try again");
                 }
@@ -91,7 +112,7 @@ public class App {
         int selected;
         while(loop)
         {
-            printStudentMenu();
+            printBookingsMenu();
             try {
                 selected = keyboard.nextInt();
                 keyboard.nextLine();
@@ -102,13 +123,13 @@ public class App {
                         loop = false;
                         break;
                     case ADD_BOOKING:
-                        Bookings.addBooking();
+                        Bookings.add();
                     case EDIT_BOOKING:
-                        Bookings.editBooking();
+                        Bookings.edit();
                     case DELETE_BOOKING:
-                        Bookings.deleteBooking();
+                        Bookings.delete();
                     case PRINT_BOOKINGS:
-                        Bookings.printBookings();
+                        Bookings.print();
                     case PRINT_BOOKINGS_STUDENT:
                         Bookings.printBookingsOneStudent();
                     case RETURN_COMPUTER:

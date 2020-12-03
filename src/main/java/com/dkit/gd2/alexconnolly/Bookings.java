@@ -3,7 +3,7 @@ package com.dkit.gd2.alexconnolly;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Bookings
+public class Bookings implements RecordChanges
 {
     private static Scanner keyboard = new Scanner(System.in);
 
@@ -56,7 +56,8 @@ public class Bookings
         return studentID;
     }
 
-    public static void addBooking()
+    @Override
+    public void add()
     {
         //read file
         System.out.println("Please Enter the new Booking's details below, after every new detail, please press enter");
@@ -69,35 +70,35 @@ public class Bookings
 
         //try()
         //{
-            //if(newStudID != (any of the student ids in the text file)
-            //        {
-            //            System.out.println("This student ID doesn't exist - would you like to create a new student entry?\n1-Yes\t2-No");
-            //            int ans = keyboard.nextInt();
-            //            if(ans== 1)
-            //            {
-            //                Bookings newBooking = new Bookings(newID, newBookDateTime, newReturnDateTime, newType, newTag, newStudID);
-            //                write to the file before taking the user to add a student
-            //                System.out.println("Your Booking has been saved! Taking you to the AddStudent section...");
-            //                Student.addStudent();
-            //            }
-            //            else if(ans == 2)
-            //            {
-            //                System.out.println("Sorry - we can't book computers for students that don't exist. Please try again");
-            //            }
-            //        }
+        //if(newStudID != (any of the student ids in the text file)
+        //        {
+        //            System.out.println("This student ID doesn't exist - would you like to create a new student entry?\n1-Yes\t2-No");
+        //            int ans = keyboard.nextInt();
+        //            if(ans== 1)
+        //            {
+        //                Bookings newBooking = new Bookings(newID, newBookDateTime, newReturnDateTime, newType, newTag, newStudID);
+        //                write to the file before taking the user to add a student
+        //                System.out.println("Your Booking has been saved! Taking you to the AddStudent section...");
+        //                Student.addStudent();
+        //            }
+        //            else if(ans == 2)
+        //            {
+        //                System.out.println("Sorry - we can't book computers for students that don't exist. Please try again");
+        //            }
+        //        }
         //}
         //catch(IllegalArgumentException e)
         //{
-            //System.out.println("Please select either 1 or 2 as your answer");
+        //System.out.println("Please select either 1 or 2 as your answer");
         //}
         //catch(ArrayIndexOutOfBoundsException e)
         //{
-           //System.out.println("Please select either 1 or 2 as your answer");
+        //System.out.println("Please select either 1 or 2 as your answer");
         //}
-        System.out.println("Returning you to the main menu...");
     }
 
-    public static void editBooking()
+    @Override
+    public void edit()
     {
         System.out.println("Enter the ID of the booking you wish to edit");
         String ID = keyboard.nextLine();
@@ -137,7 +138,6 @@ public class Bookings
                     System.out.println("Enter the new Student ID");
                     String newStudID= keyboard.nextLine();
                     //.getAssetTag().setTelephone(newStudID);
-
             }
         }
         catch(IllegalArgumentException e)
@@ -148,12 +148,12 @@ public class Bookings
         {
             System.out.println("Selection out of range, try again");
         }
-
     }
 
-    public static void deleteBooking()
+    @Override
+    public void delete()
     {
-        System.out.println("Enter the ID of the booking you wish to edit");
+        System.out.println("Enter the ID of the booking you wish to delete");
         String ID = keyboard.nextLine();
         try
         {
@@ -180,10 +180,11 @@ public class Bookings
         }
     }
 
-    public static void printBookings()
-    {
+    @Override
+    public void print() {
 
     }
+
 
     public static void printBookingsOneStudent()
     {
