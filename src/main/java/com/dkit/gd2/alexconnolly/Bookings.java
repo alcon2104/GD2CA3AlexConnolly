@@ -1,5 +1,6 @@
 package com.dkit.gd2.alexconnolly;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Bookings
@@ -181,12 +182,13 @@ public class Bookings
 
     public static void printBookings()
     {
-        App.readFromBookings();
+
     }
 
     public static void printBookingsOneStudent()
     {
-        //read file in
+        //read in arraylist of bookings
+
         //check if the student id is anywhere in the file. If it is, print out that record
     }
 
