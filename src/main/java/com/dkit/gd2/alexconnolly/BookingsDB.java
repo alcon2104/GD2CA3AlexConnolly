@@ -11,7 +11,7 @@ public class BookingsDB
     private ArrayList<Bookings> bookings;
     private static Scanner keyboard = new Scanner(System.in);
 
-    public BookingsDB(ArrayList<Bookings> bookings)
+    public BookingsDB()
     {
         this.bookings = bookings;
     }

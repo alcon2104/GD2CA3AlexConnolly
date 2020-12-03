@@ -11,7 +11,7 @@ public class ComputersDB
     private ArrayList<Computer> computers;
     private Scanner keyboard = new Scanner(System.in);
 
-    public ComputersDB(ArrayList<Computer> computers)
+    public ComputersDB()
     {
         this.computers = computers;
     }

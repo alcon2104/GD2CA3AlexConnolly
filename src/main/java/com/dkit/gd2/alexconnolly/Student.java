@@ -4,7 +4,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Student
+public class Student implements RecordChanges
 {
     private static Scanner keyboard = new Scanner(System.in);
 
@@ -77,7 +77,8 @@ public class Student
         this.telephone = telephone;
     }
 
-    public static void addStudent()
+    @Override
+    public void add()
     {
         System.out.println("Please Enter the new Student's details below, after every new detail, please press enter");
         System.out.println("Name:");
@@ -103,7 +104,9 @@ public class Student
         //Write to file
     }
 
-    public static void editStudent() {
+    @Override
+    public void edit()
+    {
         System.out.println("Enter the ID of the student you wish to edit");
         String ID = keyboard.nextLine();
         try {
@@ -142,8 +145,8 @@ public class Student
         }
     }
 
-
-    public static void deleteStudent()
+    @Override
+    public void delete()
     {
         System.out.println("Enter the ID of the student you wish to delete");
         String ID = keyboard.nextLine();
@@ -173,7 +176,8 @@ public class Student
         }
     }
 
-    public static void printStudent()
+    @Override
+    public void print()
     {
         System.out.println("Enter the ID of the student you wish to view");
         String ID = keyboard.nextLine();
