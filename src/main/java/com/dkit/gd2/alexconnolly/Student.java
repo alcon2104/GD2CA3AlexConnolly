@@ -1,7 +1,7 @@
 package com.dkit.gd2.alexconnolly;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Student implements RecordChanges
@@ -83,65 +83,73 @@ public class Student implements RecordChanges
         System.out.println("Please Enter the new Student's details below, after every new detail, please press enter");
         System.out.println("Name:");
         String newName = keyboard.nextLine();
-        System.out.println("ID:");
-        String newID = keyboard.nextLine();
+        String newID = generateStudentID();
         System.out.println("Email:");
         String newEmail = keyboard.nextLine();
         System.out.println("Phone Number");
         String newTelephone = keyboard.nextLine();
-        System.out.println("If there are no loans, enter nothing");
-        String newLoan = keyboard.nextLine();
-        if(newLoan == null)
-        {
-            Student newStudent = new Student(newName, newID, newEmail, newTelephone);
-        }
-        else
-        {
-            //ArrayList<String> newLoans = new ArrayList<>();
-            //newLoans.add(newLoan);
-            //Student newStudent = new Student(newName, newID, newEmail, newTelephone, newLoans);
-        }
+        Student newStudent = new Student(newName, newID, newEmail, newTelephone);
+
         //Write to file
     }
 
-    @Override
-    public void edit()
+    private String generateStudentID()
     {
+        Random rand = new Random();
+        int lowerBound = 10000000;
+        int higherBound = 99999999;
+        String newID = "D"+rand.nextInt(higherBound - lowerBound);
+        if(newID == /*existing student ids*/)
+        {
+            generateStudentID();
+        }
+        return newID;
+    }
+
+    @Override
+    public void edit() {
         System.out.println("Enter the ID of the student you wish to edit");
         String ID = keyboard.nextLine();
-        try {
-            System.out.println("Select the entry you'd like to change\n1 - ID \t2 - Name\t3 - Email\t4 - Telephone");
-            EditStudentOptions selected = EditStudentOptions.CONTINUE;
-            selected = EditStudentOptions.values()[Integer.parseInt(keyboard.nextLine().trim())];
-            switch (selected) {
-                case ID:
-                    System.out.println("Enter the new ID");
-                    String newID = keyboard.nextLine();
-                    //.getID().setID(newID);
+        System.out.println("Select the entry you'd like to change\n0 - QUIT\t1 - ID \t2 - Name\n3 - Email\t4 - Telephone");
+        boolean loop = true;
+        EditStudentOptions menuChoice;
+        int selected;
+        while (loop) {
+            selected = keyboard.nextInt();
+            keyboard.nextLine();
+            menuChoice = EditStudentOptions.values()[selected];
+            try {
+                switch (menuChoice) {
+                    case QUIT:
+                        loop = false;
+                        break;
+                    case ID:
+                        System.out.println("Enter the new ID");
+                        String newID = keyboard.nextLine();
+                        //check that the id doesn't already exist already first
+                        //students.getID().setID(newID);
 
-                case NAME:
-                    System.out.println("Enter the new Name");
-                    String newName = keyboard.nextLine();
-                    //.getID().setName(newName);
+                    case NAME:
+                        System.out.println("Enter the new Name");
+                        String newName = keyboard.nextLine();
+                        //students.getID().setName(newName);
 
-                case EMAIL:
-                    System.out.println("Enter the new Email");
-                    String newEmail = keyboard.nextLine();
-                    //.getID().setEmail(newEmail);
+                    case EMAIL:
+                        System.out.println("Enter the new Email");
+                        String newEmail = keyboard.nextLine();
+                        //students.getID().setEmail(newEmail);
 
-                case TELEPHONE:
-                    System.out.println("Enter the new Telephone");
-                    String newTelephone = keyboard.nextLine();
-                    //.getID().setTelephone(newTelephone);
+                    case TELEPHONE:
+                        System.out.println("Enter the new Telephone");
+                        String newTelephone = keyboard.nextLine();
+                        //students.getID().setTelephone(newTelephone);
+
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Selection out of range, try again");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Selection out of range, try again");
             }
-        }
-        catch (IllegalArgumentException e)
-        {
-            System.out.println("Selection out of range, try again");
-        }
-        catch (ArrayIndexOutOfBoundsException e)
-        {
-            System.out.println("Selection out of range, try again");
         }
     }
 
@@ -149,19 +157,19 @@ public class Student implements RecordChanges
     public void delete()
     {
         System.out.println("Enter the ID of the student you wish to delete");
-        String ID = keyboard.nextLine();
+        String deleteID = keyboard.nextLine();
         try
         {
             System.out.println("Are you sure you want to delete the student?\n1 - Yes\t2 - No");
-            int delete = keyboard.nextInt();
+            int deleteChoice = keyboard.nextInt();
             keyboard.nextLine();
-            if (delete == 1)
+            if (deleteChoice == 1)
             {
-                //delete the poor kid
+                //students.getStudentID().remove();
                 System.out.println("The student has been deleted.");
                 System.out.println("Returning you to the main menu...");
             }
-            else if (delete == 2)
+            else if (deleteChoice == 2)
             {
                 System.out.println("Returning you to the main menu...");
             }
@@ -181,6 +189,8 @@ public class Student implements RecordChanges
     {
         System.out.println("Enter the ID of the student you wish to view");
         String ID = keyboard.nextLine();
+        //search students arraylist in db and print out any corresponding numbers in a new array
+        //if the array is still empty at the end, say the student number doesn't exist
     }
 }
 

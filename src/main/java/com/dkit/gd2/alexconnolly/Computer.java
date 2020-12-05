@@ -69,15 +69,12 @@ public class Computer
             String newAssetTag = "DKIT-" + rand.nextInt(higherBound - lowerBound);
             System.out.println(newAssetTag);
             //computers arraylist
-            //if(newAssetTag == )
+            if(newAssetTag == BookingsDB.bookings)
             {
-                return null;
+                generateAssetTag();
             }
-            //else
-            //{
-                //return newAssetTag;
-            //}
+
+            return newAssetTag;
         }
-        //return null;
     }
 }

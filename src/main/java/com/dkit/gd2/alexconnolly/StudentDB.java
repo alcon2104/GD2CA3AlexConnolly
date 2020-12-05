@@ -1,8 +1,6 @@
 package com.dkit.gd2.alexconnolly;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -44,5 +42,18 @@ public class StudentDB
             loans.add(data[i]);
         }
         return loans;
+    }
+
+    public static void saveStudentsToFile()
+    {
+        try (BufferedWriter studentFile = new BufferedWriter(new FileWriter("Students.txt")))
+        {
+            for(Student student: students)
+                studentFile.write(student.getName() + student.getID() + student.getEmail() + student.getTelephone() + student.getLoans());
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 }

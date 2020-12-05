@@ -1,6 +1,7 @@
 package com.dkit.gd2.alexconnolly;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Bookings implements RecordChanges
@@ -61,11 +62,14 @@ public class Bookings implements RecordChanges
     {
         //read file
         System.out.println("Please Enter the new Booking's details below, after every new detail, please press enter");
-        int newID = keyboard.nextInt();
+        int newID = generateNewID();
+        System.out.println("\nBooking Date + Time:>");
         String newBookDateTime = keyboard.nextLine();
-        String newReturnDateTime = keyboard.nextLine();
+        String newReturnDateTime = " ";
+        System.out.println("\nComputer Type:>");
         String newType = keyboard.nextLine();
-        String newTag = keyboard.nextLine();
+        String newTag = Computer.generateAssetTag();
+        System.out.println("Student ID:>");
         String newStudID = keyboard.nextLine();
 
         //try()
@@ -97,56 +101,77 @@ public class Bookings implements RecordChanges
         //}
     }
 
+    private int generateNewID()
+    {
+        Random rand = new Random();
+        int lowerBound = 10;
+        int higherBound = 99;
+        int newID = rand.nextInt(higherBound - lowerBound);
+        if(newID == /*bookings ids*/)
+        {
+            generateNewID();
+        }
+        return newID;
+    }
+
     @Override
     public void edit()
     {
         System.out.println("Enter the ID of the booking you wish to edit");
         String ID = keyboard.nextLine();
-        try
-        {
-            System.out.println("Select the entry you'd like to change\n1 - ID \t2 - Book date/time\t3 - Return date/time\t4 - Computer type\n5 - Asset tag\t6 - Student ID");
-            EditBookingOptions selected = EditBookingOptions.CONTINUE;
-            selected = EditBookingOptions.values()[Integer.parseInt(keyboard.nextLine().trim())];
-            switch (selected)
-            {
-                case ID:
-                    System.out.println("Enter the new ID");
-                    String newID = keyboard.nextLine();
-                    //.getAssetTag().setID(newID);
+            System.out.println("Select the entry you'd like to change\n0 - Quit\t1 - ID \t2 - Book date/time\t3 - Return date/time\n4 - Computer type\t5 - Asset tag\t6 - Student ID");
+            boolean loop = true;
+            EditBookingOptions menuChoice;
+            int selected;
+            while(loop) {
+                selected = keyboard.nextInt();
+                keyboard.nextLine();
+                menuChoice = EditBookingOptions.values()[selected];
+                try {
+                    switch (menuChoice) {
+                        case QUIT:
+                            loop = false;
+                            break;
+                        case ID:
+                            System.out.println("Enter the new ID");
+                            String newID = keyboard.nextLine();
+                            //bookings.getAssetTag().setID(newID);
 
-                case BOOK_DATE_TIME:
-                    System.out.println("Enter the new Book date/time");
-                    String newBook = keyboard.nextLine();
-                    //.getAssetTag().setBookDateTime(newBook);
+                        case BOOK_DATE_TIME:
+                            System.out.println("Enter the new Book date/time");
+                            String newBook = keyboard.nextLine();
+                            //bookings.getAssetTag().setBookDateTime(newBook);
 
-                case RETURN_DATE_TIME:
-                    System.out.println("Enter the new Return date/time");
-                    String newReturn = keyboard.nextLine();
-                    //.getAssetTag().setReturnDateTime(newReturn);
+                        case RETURN_DATE_TIME:
+                            System.out.println("Enter the new Return date/time");
+                            String newReturn = keyboard.nextLine();
+                            //bookings.getAssetTag().setReturnDateTime(newReturn);
 
-                case COMPUTER_TYPE:
-                    System.out.println("Enter the new Computer type");
-                    String newType = keyboard.nextLine();
-                    //.getAssetTag().setComputerType(newType);
+                        case COMPUTER_TYPE:
+                            System.out.println("Enter the new Computer type");
+                            String newType = keyboard.nextLine();
+                            //bookings.getAssetTag().setComputerType(newType);
 
-                case ASSET_TAG:
-                    System.out.println("Enter the new asset tag");
-                    String newTag = keyboard.nextLine();
-                    //.getAssetTag().setTag(newTelephone);
+                        case ASSET_TAG:
+                            System.out.println("Enter the new asset tag");
+                            String newTag = keyboard.nextLine();
+                            //bookings.getAssetTag().setTag(newTelephone);
 
-                case STUDENT_ID:
-                    System.out.println("Enter the new Student ID");
-                    String newStudID= keyboard.nextLine();
-                    //.getAssetTag().setTelephone(newStudID);
+                        case STUDENT_ID:
+                            System.out.println("Enter the new Student ID");
+                            String newStudID = keyboard.nextLine();
+                            //bookings.getAssetTag().setTelephone(newStudID);
+
+                }
             }
-        }
-        catch(IllegalArgumentException e)
-        {
-            System.out.println("Selection out of range, try again");
-        }
-        catch(ArrayIndexOutOfBoundsException e)
-        {
-            System.out.println("Selection out of range, try again");
+                catch(IllegalArgumentException e)
+                {
+                    System.out.println("Selection out of range, try again");
+                }
+                catch(ArrayIndexOutOfBoundsException e)
+                {
+                    System.out.println("Selection out of range, try again");
+                }
         }
     }
 
@@ -154,7 +179,7 @@ public class Bookings implements RecordChanges
     public void delete()
     {
         System.out.println("Enter the ID of the booking you wish to delete");
-        String ID = keyboard.nextLine();
+        String deleteID = keyboard.nextLine();
         try
         {
             System.out.println("Are you sure you want to delete the Booking?\n1 - Yes\t2 - No");
@@ -181,7 +206,8 @@ public class Bookings implements RecordChanges
     }
 
     @Override
-    public void print() {
+    public void print()
+    {
 
     }
 
@@ -211,7 +237,6 @@ public class Bookings implements RecordChanges
                 else if(ans == 2)
                 {
                     System.out.println("Returning you to the main menu...");
-                    //App.main();
                 }
             }
             catch(IllegalArgumentException e)
@@ -237,7 +262,6 @@ public class Bookings implements RecordChanges
         //Check for types
         //If type = 1, 2, or 3, add one to a count of either
         //Return 40 - number of computers counted AND number of computers counted separately
-
     }
 
     @Override
