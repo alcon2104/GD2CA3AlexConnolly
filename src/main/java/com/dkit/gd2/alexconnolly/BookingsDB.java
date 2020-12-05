@@ -47,7 +47,7 @@ public class BookingsDB
     {
         try (BufferedWriter bookingFile = new BufferedWriter(new FileWriter("Bookings.txt")))
         {
-            for(Bookings booking: bookings)
+            for(Bookings booking: )
             bookingFile.write(booking.getBookingID() + booking.getBookDateTime() + booking.getReturnDateTime() + booking.getComputerType() +
                     booking.getAssetTag() + booking.getStudentID());
         }
