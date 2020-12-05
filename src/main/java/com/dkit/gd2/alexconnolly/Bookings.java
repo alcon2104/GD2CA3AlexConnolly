@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Bookings implements RecordChanges
+public class Bookings
 {
     private static Scanner keyboard = new Scanner(System.in);
 
@@ -47,7 +47,7 @@ public class Bookings implements RecordChanges
         return computerType;
     }
 
-    public String getAssetTag()
+    public static String getAssetTag()
     {
         return assetTag;
     }
@@ -56,161 +56,6 @@ public class Bookings implements RecordChanges
     {
         return studentID;
     }
-
-    @Override
-    public void add()
-    {
-        //read file
-        System.out.println("Please Enter the new Booking's details below, after every new detail, please press enter");
-        int newID = generateNewID();
-        System.out.println("\nBooking Date + Time:>");
-        String newBookDateTime = keyboard.nextLine();
-        String newReturnDateTime = " ";
-        System.out.println("\nComputer Type:>");
-        String newType = keyboard.nextLine();
-        String newTag = Computer.generateAssetTag();
-        System.out.println("Student ID:>");
-        String newStudID = keyboard.nextLine();
-
-        //try()
-        //{
-        //if(newStudID != (any of the student ids in the text file)
-        //        {
-        //            System.out.println("This student ID doesn't exist - would you like to create a new student entry?\n1-Yes\t2-No");
-        //            int ans = keyboard.nextInt();
-        //            if(ans== 1)
-        //            {
-        //                Bookings newBooking = new Bookings(newID, newBookDateTime, newReturnDateTime, newType, newTag, newStudID);
-        //                write to the file before taking the user to add a student
-        //                System.out.println("Your Booking has been saved! Taking you to the AddStudent section...");
-        //                Student.addStudent();
-        //            }
-        //            else if(ans == 2)
-        //            {
-        //                System.out.println("Sorry - we can't book computers for students that don't exist. Please try again");
-        //            }
-        //        }
-        //}
-        //catch(IllegalArgumentException e)
-        //{
-        //System.out.println("Please select either 1 or 2 as your answer");
-        //}
-        //catch(ArrayIndexOutOfBoundsException e)
-        //{
-        //System.out.println("Please select either 1 or 2 as your answer");
-        //}
-    }
-
-    private int generateNewID()
-    {
-        Random rand = new Random();
-        int lowerBound = 10;
-        int higherBound = 99;
-        int newID = rand.nextInt(higherBound - lowerBound);
-        if(newID == /*bookings ids*/)
-        {
-            generateNewID();
-        }
-        return newID;
-    }
-
-    @Override
-    public void edit()
-    {
-        System.out.println("Enter the ID of the booking you wish to edit");
-        String ID = keyboard.nextLine();
-            System.out.println("Select the entry you'd like to change\n0 - Quit\t1 - ID \t2 - Book date/time\t3 - Return date/time\n4 - Computer type\t5 - Asset tag\t6 - Student ID");
-            boolean loop = true;
-            EditBookingOptions menuChoice;
-            int selected;
-            while(loop) {
-                selected = keyboard.nextInt();
-                keyboard.nextLine();
-                menuChoice = EditBookingOptions.values()[selected];
-                try {
-                    switch (menuChoice) {
-                        case QUIT:
-                            loop = false;
-                            break;
-                        case ID:
-                            System.out.println("Enter the new ID");
-                            String newID = keyboard.nextLine();
-                            //bookings.getAssetTag().setID(newID);
-
-                        case BOOK_DATE_TIME:
-                            System.out.println("Enter the new Book date/time");
-                            String newBook = keyboard.nextLine();
-                            //bookings.getAssetTag().setBookDateTime(newBook);
-
-                        case RETURN_DATE_TIME:
-                            System.out.println("Enter the new Return date/time");
-                            String newReturn = keyboard.nextLine();
-                            //bookings.getAssetTag().setReturnDateTime(newReturn);
-
-                        case COMPUTER_TYPE:
-                            System.out.println("Enter the new Computer type");
-                            String newType = keyboard.nextLine();
-                            //bookings.getAssetTag().setComputerType(newType);
-
-                        case ASSET_TAG:
-                            System.out.println("Enter the new asset tag");
-                            String newTag = keyboard.nextLine();
-                            //bookings.getAssetTag().setTag(newTelephone);
-
-                        case STUDENT_ID:
-                            System.out.println("Enter the new Student ID");
-                            String newStudID = keyboard.nextLine();
-                            //bookings.getAssetTag().setTelephone(newStudID);
-
-                }
-            }
-                catch(IllegalArgumentException e)
-                {
-                    System.out.println("Selection out of range, try again");
-                }
-                catch(ArrayIndexOutOfBoundsException e)
-                {
-                    System.out.println("Selection out of range, try again");
-                }
-        }
-    }
-
-    @Override
-    public void delete()
-    {
-        System.out.println("Enter the ID of the booking you wish to delete");
-        String deleteID = keyboard.nextLine();
-        try
-        {
-            System.out.println("Are you sure you want to delete the Booking?\n1 - Yes\t2 - No");
-            int delete = keyboard.nextInt();
-            if (delete == 1)
-            {
-                //delete the booking
-                System.out.println("The booking has been deleted.");
-                System.out.println("Returning you to the main menu...");
-            }
-            else if (delete == 2)
-            {
-                System.out.println("Returning you to the main menu...");
-            }
-        }
-        catch(IllegalArgumentException e)
-        {
-            System.out.println("Selection out of range, try again");
-        }
-        catch(ArrayIndexOutOfBoundsException e)
-        {
-            System.out.println("Selection out of range, try again");
-        }
-    }
-
-    @Override
-    public void print()
-    {
-
-    }
-
 
     public static void printBookingsOneStudent()
     {
@@ -241,11 +86,11 @@ public class Bookings implements RecordChanges
             }
             catch(IllegalArgumentException e)
             {
-                System.out.println("Selection out of range, try again");
+                System.out.println(Colours.RED+"Selection out of range, try again"+Colours.RESET);
             }
             catch(ArrayIndexOutOfBoundsException e)
             {
-                System.out.println("Selection out of range, try again");
+                System.out.println(Colours.RED+"Selection out of range, try again"+Colours.RESET);
             }
         }
 

@@ -66,6 +66,13 @@ public class App {
             }
         }
         System.out.println(Colours.GREEN+"Thank you for using the SCMA!"+Colours.RESET);
+        end();
+    }
+
+    public static void end()
+    {
+        StudentDB.saveStudentsToFile();
+        BookingsDB.saveBookingsToFile();
     }
 
     public static void studentMenu() {
@@ -80,19 +87,19 @@ public class App {
                 selected = keyboard.nextInt();
                 keyboard.nextLine();
                 menuChoice = StudentMenuOptions.values()[selected];
-
+                StudentDB studentDB = new StudentDB();
                 switch (menuChoice) {
                     case QUIT:
                         loop = false;
                         break;
                     case ADD_STUDENT:
-                        Student.add();
+                        studentDB.addNew();
                     case EDIT_STUDENT:
-                        Student.edit();
+                        studentDB.edit();
                     case DELETE_STUDENT:
-                        Student.delete();
+                        studentDB.delete();
                     case PRINT_STUDENT:
-                        Student.print();
+                        studentDB.print();
                     default:
                         System.out.println("Selection out of range, please try again");
                 }
@@ -117,19 +124,19 @@ public class App {
                 selected = keyboard.nextInt();
                 keyboard.nextLine();
                 menuChoice = BookingMenuOptions.values()[selected];
-
+                BookingsDB bookingsDB = new BookingsDB();
                 switch (menuChoice) {
                     case QUIT:
                         loop = false;
                         break;
                     case ADD_BOOKING:
-                        Bookings.add();
+                        bookingsDB.addNew();
                     case EDIT_BOOKING:
-                        Bookings.edit();
+                        bookingsDB.edit();
                     case DELETE_BOOKING:
-                        Bookings.delete();
+                        bookingsDB.delete();
                     case PRINT_BOOKINGS:
-                        Bookings.print();
+                        bookingsDB.print();
                     case PRINT_BOOKINGS_STUDENT:
                         Bookings.printBookingsOneStudent();
                     case RETURN_COMPUTER:
