@@ -16,7 +16,7 @@ public class Bookings implements RecordChanges
     private String studentID;
 
     public Bookings(int bookingID, String bookDateTime, String returnDateTime,
-    String computerType, String assetTag, String studentID)
+                    String computerType, String assetTag, String studentID)
     {
         this.bookingID = bookingID;
         this.bookDateTime = bookDateTime;
