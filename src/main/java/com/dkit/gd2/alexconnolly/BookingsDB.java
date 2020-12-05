@@ -1,8 +1,6 @@
 package com.dkit.gd2.alexconnolly;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,7 +14,8 @@ public class BookingsDB
         this.bookings = bookings;
     }
 
-    public static void loadBookingsFromFile() {
+    public static void loadBookingsFromFile()
+    {
         try (Scanner bookingFile = new Scanner(new BufferedReader(new FileReader("Bookings.txt"))))
         {
             while (bookingFile.hasNextLine()) {
@@ -41,6 +40,20 @@ public class BookingsDB
         catch (FileNotFoundException e)
         {
             System.out.println(Colours.PURPLE+"Could not load bookings; if this is the first time running the application then this might be fine."+Colours.RESET);
+        }
+    }
+
+    public static void saveBookingsToFile()
+    {
+        try (BufferedWriter bookingFile = new BufferedWriter(new FileWriter("Bookings.txt")))
+        {
+            for(Bookings booking: bookings)
+                bookingFile.write(booking.getBookingID() + booking.getBookDateTime() + booking.getReturnDateTime() + booking.getComputerType() +
+                        booking.getAssetTag() + booking.getStudentID());
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
         }
     }
 }
