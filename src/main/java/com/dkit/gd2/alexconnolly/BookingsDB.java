@@ -49,15 +49,16 @@ public class BookingsDB implements RecordChanges
     {
         try (BufferedWriter bookingFile = new BufferedWriter(new FileWriter("Bookings.txt")))
         {
-            for(int i = 0; i < bookings.size(); i++)
+                for(Bookings bookings : bookings)
             {
-                bookingFile.write(booking.getBookingID() + booking.getBookDateTime() + booking.getReturnDateTime() + booking.getComputerType() +
+                bookingFile.write(booking.getBookingID() + booking.getBookDate() + booking.getReturnDate() + booking.getComputerType() +
                         booking.getAssetTag() + booking.getStudentID());
+                bookingFile.write("\n");
             }
         }
         catch (IOException e)
         {
-            e.printStackTrace();
+            System.out.println(Colours.RED+"Bookings could not be saved"+Colours.RESET);
         }
     }
 
@@ -79,7 +80,7 @@ public class BookingsDB implements RecordChanges
         {
             for(int i = 0; i < bookings.size(); i++)
             {
-                if(newStudID != Bookings.getBookingID().getStudentID();
+                if(newStudID != bookings.get(i).getStudentID())
                        {
                             System.out.println("This student ID doesn't exist - would you like to create a new student entry?\n1-Yes\t2-No");
                             int ans = keyboard.nextInt();
@@ -112,7 +113,7 @@ public class BookingsDB implements RecordChanges
     public void edit()
     {
         System.out.println("Enter the ID of the booking you wish to edit");
-        String ID = keyboard.nextLine();
+        String editID = keyboard.nextLine();
         System.out.println("Select the entry you'd like to change\n0 - Quit\t1 - ID \t2 - Book date/time\t3 - Return date/time\n4 - Computer type\t5 - Asset tag\t6 - Student ID");
         boolean loop = true;
         EditBookingOptions menuChoice;
@@ -127,34 +128,82 @@ public class BookingsDB implements RecordChanges
                         loop = false;
                         break;
                     case ID:
-                        System.out.println("Enter the new ID");
-                        String newID = keyboard.nextLine();
-                        bookings.getAssetTag().setID(newID);
+                        for(int i = 0; i <= bookings.size(); i++)
+                        {
+                            if(bookings.get(i).getAssetTag() == editID)
+                            {
+                                System.out.println("Enter the new ID");
+                                int newID = keyboard.nextInt();
+                                bookings.get(i).setBookingID(newID);
+                            }
+                            System.out.println("Edit Successful.");
+                            System.out.println("Returning you to the Booking menu...");
+                        }
 
-                    case BOOK_DATE_TIME:
-                        System.out.println("Enter the new Book date/time");
-                        String newBook = keyboard.nextLine();
-                        bookings.getAssetTag().setBookDateTime(newBook);
+                    case BOOK_DATE:
+                        for(int i = 0; i <= bookings.size(); i++)
+                        {
+                            if(bookings.get(i).getAssetTag() == editID)
+                            {
+                                System.out.println("Enter the new Booking Date");
+                                String newDate = keyboard.nextLine();
+                                bookings.get(i).setBookDate(newDate);
+                            }
+                            System.out.println("Edit Successful.");
+                            System.out.println("Returning you to the Booking menu...");
+                        }
 
-                    case RETURN_DATE_TIME:
-                        System.out.println("Enter the new Return date/time");
-                        String newReturn = keyboard.nextLine();
-                        bookings.getAssetTag().setReturnDateTime(newReturn);
+                    case RETURN_DATE:
+                        for(int i = 0; i <= bookings.size(); i++)
+                        {
+                            if(bookings.get(i).getAssetTag() == editID)
+                            {
+                                System.out.println("Enter the new Return Date");
+                                String newDate = keyboard.nextLine();
+                                bookings.get(i).setReturnDate(newDate);
+                            }
+                            System.out.println("Edit Successful.");
+                            System.out.println("Returning you to the Booking menu...");
+                        }
 
                     case COMPUTER_TYPE:
-                        System.out.println("Enter the new Computer type");
-                        String newType = keyboard.nextLine();
-                        bookings.getAssetTag().setComputerType(newType);
+                        for(int i = 0; i <= bookings.size(); i++)
+                        {
+                            if(bookings.get(i).getAssetTag() == editID)
+                            {
+                                System.out.println("Enter the new Computer Type");
+                                String newType = keyboard.nextLine();
+                                bookings.get(i).setComputerType(newType);
+                            }
+                            System.out.println("Edit Successful.");
+                            System.out.println("Returning you to the Booking menu...");
+                        }
 
                     case ASSET_TAG:
-                        System.out.println("Enter the new asset tag");
-                        String newTelephone = keyboard.nextLine();
-                        bookings.getAssetTag().setTag(newTelephone);
+                        for(int i = 0; i <= bookings.size(); i++)
+                        {
+                            if(bookings.get(i).getAssetTag() == editID)
+                            {
+                                System.out.println("Enter the new Asset tag");
+                                String newTag = keyboard.nextLine();
+                                bookings.get(i).setBookDate(newTag);
+                            }
+                            System.out.println("Edit Successful.");
+                            System.out.println("Returning you to the Booking menu...");
+                        }
 
                     case STUDENT_ID:
-                        System.out.println("Enter the new Student ID");
-                        String newStudID = keyboard.nextLine();
-                        bookings.getAssetTag().setTelephone(newStudID);
+                        for(int i = 0; i <= bookings.size(); i++)
+                        {
+                            if(bookings.get(i).getAssetTag() == editID)
+                            {
+                                System.out.println("Enter the new Student ID");
+                                String newID = keyboard.nextLine();
+                                bookings.get(i).setBookDate(newID);
+                            }
+                            System.out.println("Edit Successful.");
+                            System.out.println("Returning you to the Booking menu...");
+                        }
 
                 }
                 System.out.println("Returning you to the Bookings menu...");
@@ -181,9 +230,15 @@ public class BookingsDB implements RecordChanges
             int delete = keyboard.nextInt();
             if (delete == 1)
             {
-                bookings.getAssetTag().remove();
-                System.out.println("The booking has been deleted.");
-                System.out.println("Returning you to the Booking menu...");
+                for(int i = 0; i <= bookings.size(); i++)
+                {
+                    if(bookings.get(i).getAssetTag() == deleteID)
+                    {
+                        bookings.remove(bookings.get(i));
+                    }
+                    System.out.println("The booking has been deleted.");
+                    System.out.println("Returning you to the Booking menu...");
+                }
             }
             else if (delete == 2)
             {
@@ -215,9 +270,13 @@ public class BookingsDB implements RecordChanges
         int lowerBound = 10;
         int higherBound = 99;
         int newID = rand.nextInt(higherBound - lowerBound);
-        if(newID == Bookings.getBookingID()/*bookings ids*/)
+        for(int i = 0; i <= bookings.size(); i++)
         {
-            generateNewID();
+            if(bookings.get(i).getBookingID() == newID)
+            {
+                System.out.println("Enter the new Booking Date");
+                generateNewID();
+            }
         }
         return newID;
     }

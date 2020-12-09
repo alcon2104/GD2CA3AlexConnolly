@@ -77,17 +77,6 @@ public class Student
         this.telephone = telephone;
     }
 
-    public static String generateStudentID()
-    {
-        Random rand = new Random();
-        int lowerBound = 10000000;
-        int higherBound = 99999999;
-        String newID = "D"+rand.nextInt(higherBound - lowerBound);
-        if(newID == /*existing student ids*/)
-        {
-            generateStudentID();
-        }
-        return newID;
-    }
+
 }
 

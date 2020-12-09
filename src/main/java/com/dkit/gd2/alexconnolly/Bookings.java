@@ -1,5 +1,6 @@
 package com.dkit.gd2.alexconnolly;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -9,18 +10,18 @@ public class Bookings
     private static Scanner keyboard = new Scanner(System.in);
 
     private int bookingID;
-    private String bookDateTime;
-    private String returnDateTime;
+    private String bookDate;
+    private String returnDate;
     private String computerType;
     private String assetTag;
     private String studentID;
 
-    public Bookings(int bookingID, String bookDateTime, String returnDateTime,
+    public Bookings(int bookingID, String bookDate, String returnDate,
                     String computerType, String assetTag, String studentID)
     {
         this.bookingID = bookingID;
-        this.bookDateTime = bookDateTime;
-        this.returnDateTime = returnDateTime;
+        this.bookDate = bookDate;
+        this.returnDate = returnDate;
         this.computerType = computerType;
         this.assetTag = Computer.getAssetTag();
         this.studentID = studentID;
@@ -32,14 +33,14 @@ public class Bookings
         return bookingID;
     }
 
-    public String getBookDateTime()
+    public String getBookDate()
     {
-        return bookDateTime;
+        return bookDate;
     }
 
-    public String getReturnDateTime()
+    public String getReturnDate()
     {
-        return returnDateTime;
+        return returnDate;
     }
 
     public String getComputerType()
@@ -47,7 +48,7 @@ public class Bookings
         return computerType;
     }
 
-    public static String getAssetTag()
+    public String getAssetTag()
     {
         return assetTag;
     }
@@ -55,6 +56,37 @@ public class Bookings
     public String getStudentID()
     {
         return studentID;
+    }
+
+
+    public void setBookingID(int bookingID)
+    {
+        this.bookingID = bookingID;
+    }
+
+    public void setBookDate(String bookDate)
+    {
+        this.bookDate = bookDate;
+    }
+
+    public void setReturnDate(String returnDate)
+    {
+        this.returnDate = returnDate;
+    }
+
+    public void setComputerType(String computerType)
+    {
+        this.computerType = computerType;
+    }
+
+    public void setAssetTag(String assetTag)
+    {
+        this.assetTag = assetTag;
+    }
+
+    public void setStudentID(String studentID)
+    {
+        this.studentID = studentID;
     }
 
     public static void printBookingsOneStudent()
@@ -98,23 +130,48 @@ public class Bookings
 
     public static void bookingLength()
     {
-
+        int numDays = 0;
+        for(int i = 0; i < bookings.size(); i++)
+        {
+            LocalDate.parse(bookings.getBookingDate());
+            if(bookings.getReturnDate != null)
+            {
+                LocalDate.parse(bookings.getReturnDate());
+            }
+            
+        }
     }
 
     public static void findNumComputersBooked()
     {
-        //read file
-        //Check for types
-        //If type = 1, 2, or 3, add one to a count of either
-        //Return 40 - number of computers counted AND number of computers counted separately
+        int countLaptop = 0;
+        int countDesktop = 0;
+        int countPi = 0;
+
+        for(int i = 0; i < bookings.size(); i++)
+        {
+            if(bookings.get(i).getComputerType() = "Laptop")
+            {
+                countLaptop++;
+            }
+            else if(bookings.get(i).getComputerType() = "Desktop")
+            {
+                countLaptop++;
+            }
+            else
+            {
+                countPi++;
+            }
+            System.out.println("There are " +countLaptop+ " laptops, " +countDesktop+ " desktops and " +countPi+ " Raspberry Pis currently being booked");
+        }
     }
 
     @Override
     public String toString() {
         return "Bookings{" +
                 "bookingID=" + bookingID +
-                ", bookDateTime='" + bookDateTime + '\'' +
-                ", returnDateTime='" + returnDateTime + '\'' +
+                ", bookDateTime='" + bookDate + '\'' +
+                ", returnDateTime='" + returnDate + '\'' +
                 ", computerType='" + computerType + '\'' +
                 ", assetTag='" + assetTag + '\'' +
                 ", studentID='" + studentID + '\'' +
