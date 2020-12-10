@@ -1,10 +1,10 @@
 package com.dkit.gd2.alexconnolly;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class BookingsDB implements RecordChanges
 {
@@ -24,19 +24,14 @@ public class BookingsDB implements RecordChanges
                 String input = bookingFile.nextLine();
                 String[] data = input.split(",");
                 int bookingID = Integer.parseInt(data[0]);
-                String bookingDateTime = data[1];
-                String returnDateTime = data[3];
+                String bookingDate = data[1];
+                String returnDate = data[3];
                 String computerType = data[4];
                 String assetTag = data[5];
                 String studentID = data[6];
 
-                ArrayList booking = new ArrayList<>();
-                booking.add(bookingID);
-                booking.add(bookingDateTime);
-                booking.add(returnDateTime);
-                booking.add(computerType);
-                booking.add(assetTag);
-                booking.add(studentID);
+                Bookings booking = new Bookings(bookingID, bookingDate, returnDate, computerType, assetTag, studentID);
+                bookings.add(booking);
             }
         }
         catch (FileNotFoundException e)
@@ -45,15 +40,17 @@ public class BookingsDB implements RecordChanges
         }
     }
 
-    public static void saveBookingsToFile(Bookings booking)
+    public static void saveBookingsToFile()
     {
         try (BufferedWriter bookingFile = new BufferedWriter(new FileWriter("Bookings.txt")))
         {
-                for(Bookings bookings : bookings)
+            if(bookings != null)
             {
-                bookingFile.write(booking.getBookingID() + booking.getBookDate() + booking.getReturnDate() + booking.getComputerType() +
-                        booking.getAssetTag() + booking.getStudentID());
-                bookingFile.write("\n");
+                for (Bookings bookings : bookings) {
+                    bookingFile.write(bookings.getBookingID() + bookings.getBookDate() + bookings.getReturnDate() + bookings.getComputerType() +
+                            bookings.getAssetTag() + bookings.getStudentID());
+                    bookingFile.write("\n");
+                }
             }
         }
         catch (IOException e)
@@ -72,7 +69,7 @@ public class BookingsDB implements RecordChanges
         String newReturnDateTime = " ";
         System.out.println("\nComputer Type:>");
         String newType = keyboard.nextLine();
-        String newTag = Computer.generateAssetTag();
+        String newTag = generateAssetTag();
         System.out.println("Student ID:>");
         String newStudID = keyboard.nextLine();
 
@@ -87,7 +84,7 @@ public class BookingsDB implements RecordChanges
                             if(ans== 1)
                             {
                                 Bookings newBooking = new Bookings(newID, newBookDateTime, newReturnDateTime, newType, newTag, newStudID);
-                                saveBookingsToFile(newBooking);
+                                bookings.add(newBooking);
                                 System.out.println("Your Booking has been saved! Taking you to the AddStudent section...");
                                 StudentDB studentDB = new StudentDB();
                                 studentDB.addNew();
@@ -109,11 +106,32 @@ public class BookingsDB implements RecordChanges
         }
     }
 
+    public static String generateAssetTag()
+    {
+        //if(Computer.getAssetTag() == )
+        {
+            Random rand = new Random();
+            int lowerBound = 10000;
+            int higherBound = 99999;
+            String newAssetTag = "DKIT-" + rand.nextInt(higherBound - lowerBound);
+            System.out.println(newAssetTag);
+            //computers arraylist
+            for(int i = 0; i < bookings.size(); i++)
+            {
+                if (newAssetTag == bookings.get(i).getAssetTag()) {
+                    generateAssetTag();
+                }
+            }
+
+            return newAssetTag;
+        }
+    }
+
     @Override
     public void edit()
     {
         System.out.println("Enter the ID of the booking you wish to edit");
-        String editID = keyboard.nextLine();
+        int editID = keyboard.nextInt();
         System.out.println("Select the entry you'd like to change\n0 - Quit\t1 - ID \t2 - Book date/time\t3 - Return date/time\n4 - Computer type\t5 - Asset tag\t6 - Student ID");
         boolean loop = true;
         EditBookingOptions menuChoice;
@@ -130,7 +148,7 @@ public class BookingsDB implements RecordChanges
                     case ID:
                         for(int i = 0; i <= bookings.size(); i++)
                         {
-                            if(bookings.get(i).getAssetTag() == editID)
+                            if(bookings.get(i).getBookingID() == editID)
                             {
                                 System.out.println("Enter the new ID");
                                 int newID = keyboard.nextInt();
@@ -143,7 +161,7 @@ public class BookingsDB implements RecordChanges
                     case BOOK_DATE:
                         for(int i = 0; i <= bookings.size(); i++)
                         {
-                            if(bookings.get(i).getAssetTag() == editID)
+                            if(bookings.get(i).getBookingID() == editID)
                             {
                                 System.out.println("Enter the new Booking Date");
                                 String newDate = keyboard.nextLine();
@@ -156,7 +174,7 @@ public class BookingsDB implements RecordChanges
                     case RETURN_DATE:
                         for(int i = 0; i <= bookings.size(); i++)
                         {
-                            if(bookings.get(i).getAssetTag() == editID)
+                            if(bookings.get(i).getBookingID() == editID)
                             {
                                 System.out.println("Enter the new Return Date");
                                 String newDate = keyboard.nextLine();
@@ -169,7 +187,7 @@ public class BookingsDB implements RecordChanges
                     case COMPUTER_TYPE:
                         for(int i = 0; i <= bookings.size(); i++)
                         {
-                            if(bookings.get(i).getAssetTag() == editID)
+                            if(bookings.get(i).getBookingID() == editID)
                             {
                                 System.out.println("Enter the new Computer Type");
                                 String newType = keyboard.nextLine();
@@ -182,7 +200,7 @@ public class BookingsDB implements RecordChanges
                     case ASSET_TAG:
                         for(int i = 0; i <= bookings.size(); i++)
                         {
-                            if(bookings.get(i).getAssetTag() == editID)
+                            if(bookings.get(i).getBookingID() == editID)
                             {
                                 System.out.println("Enter the new Asset tag");
                                 String newTag = keyboard.nextLine();
@@ -195,7 +213,7 @@ public class BookingsDB implements RecordChanges
                     case STUDENT_ID:
                         for(int i = 0; i <= bookings.size(); i++)
                         {
-                            if(bookings.get(i).getAssetTag() == editID)
+                            if(bookings.get(i).getBookingID() == editID)
                             {
                                 System.out.println("Enter the new Student ID");
                                 String newID = keyboard.nextLine();
@@ -222,7 +240,7 @@ public class BookingsDB implements RecordChanges
     @Override
     public void delete()
     {
-        System.out.println("Enter the ID of the booking you wish to delete");
+        System.out.println("Enter the asset tag of the booking you wish to delete");
         String deleteID = keyboard.nextLine();
         try
         {
@@ -279,5 +297,68 @@ public class BookingsDB implements RecordChanges
             }
         }
         return newID;
+    }
+
+    public static void printBookingsOneStudent()
+    {
+        System.out.println("Enter the ID of a student you would like to view the bookings of");
+        String printID = keyboard.nextLine();
+        for(int i = 0; i < bookings.size(); i++)
+        {
+            if(bookings.get(i).getStudentID().equals(printID))
+            {
+                System.out.println(bookings.get(i).toString());
+            }
+        }
+    }
+
+//    public static void returnComputer()
+//    {
+//        System.out.println("Please enter the asset tag of the Computer you would like to return");
+//        String returnTag = keyboard.nextLine();
+//        try{
+//            for (int i = 0; i < bookings.size(); i++)
+//            {
+//                if (bookings.get(i).getAssetTag().equals(returnTag))
+//                {
+//                    LocalDate today = LocalDate.now();
+//                    bookings.get(i).setReturnDate(today);
+//                    System.out.println("Computer returned!");
+//                    System.out.println("Returning you to the main menu...");
+//                }
+//            }
+//        }
+//        catch(IllegalArgumentException e)
+//        {
+//            System.out.println(Colours.RED+"Selection out of range, try again"+Colours.RESET);
+//        }
+//        catch(ArrayIndexOutOfBoundsException e)
+//        {
+//            System.out.println(Colours.RED+"Selection out of range, try again"+Colours.RESET);
+//        }
+//    }
+
+    public static void findNumComputersBooked()
+    {
+        int countLaptop = 0;
+        int countDesktop = 0;
+        int countPi = 0;
+
+        for(int i = 0; i < bookings.size(); i++)
+        {
+            if(bookings.get(i).getComputerType().equals("Laptop"))
+            {
+                countLaptop++;
+            }
+            else if(bookings.get(i).getComputerType().equals("Desktop"))
+            {
+                countLaptop++;
+            }
+            else
+            {
+                countPi++;
+            }
+            System.out.println("There are " +countLaptop+ " laptops, " +countDesktop+ " desktops and " +countPi+ " Raspberry Pis currently being booked");
+        }
     }
 }

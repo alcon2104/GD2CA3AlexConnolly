@@ -27,6 +27,9 @@ public class StudentDB implements RecordChanges
                 String email = data[3];
                 String telephone = data[4];
                 ArrayList<String> loans = readStudentLoans(data);
+
+                Student newStudent = new Student(name, ID, email, telephone, loans);
+                students.add(newStudent);
             }
 
         }
@@ -49,9 +52,11 @@ public class StudentDB implements RecordChanges
     {
         try (BufferedWriter studentFile = new BufferedWriter(new FileWriter("Students.txt")))
         {
-            for(Student student: students)
-                studentFile.write(student.getName() + student.getID() + student.getEmail() + student.getTelephone() + student.getLoans());
+            if(students != null) {
+                for (Student student : students)
+                    studentFile.write(student.getName() + student.getID() + student.getEmail() + student.getTelephone() + student.getLoans());
                 studentFile.write("\n");
+            }
         }
         catch (IOException e)
         {
@@ -109,11 +114,11 @@ public class StudentDB implements RecordChanges
                         loop = false;
                         break;
                     case ID:
+                        System.out.println("Enter the new ID");
                         for(int i = 0; i < students.size(); i++)
                         {
                             if(students.get(i).getID() == editID)
                             {
-                                System.out.println("Enter the new ID");
                                 String newID = keyboard.nextLine();
                                 students.get(i).setName(newID);
                                 System.out.println("Edit Successful.");
@@ -127,9 +132,9 @@ public class StudentDB implements RecordChanges
                     case NAME:
                         for(int i = 0; i <= students.size(); i++)
                         {
+                            System.out.println("Enter the new name");
                             if(students.get(i).getID() == editID)
                             {
-                                System.out.println("Enter the new name");
                                 String newName = keyboard.nextLine();
                                 students.get(i).setName(newName);
                                 System.out.println("Edit Successful.");
@@ -140,9 +145,9 @@ public class StudentDB implements RecordChanges
                     case EMAIL:
                         for(int i = 0; i <= students.size(); i++)
                         {
+                            System.out.println("Enter the new email");
                             if(students.get(i).getID() == editID)
                             {
-                                System.out.println("Enter the new email");
                                 String newEmail = keyboard.nextLine();
                                 students.get(i).setEmail(newEmail);
                                 System.out.println("Edit Successful.");
@@ -153,9 +158,9 @@ public class StudentDB implements RecordChanges
                     case TELEPHONE:
                         for(int i = 0; i <= students.size(); i++)
                         {
+                            System.out.println("Enter the new telephone number");
                             if(students.get(i).getID() == editID)
                             {
-                                System.out.println("Enter the new telephone number");
                                 String newNumber = keyboard.nextLine();
                                 students.get(i).setName(newNumber);
                                 System.out.println("Edit Successful.");
@@ -218,7 +223,12 @@ public class StudentDB implements RecordChanges
     {
         System.out.println("Enter the ID of the student you wish to view");
         String ID = keyboard.nextLine();
-        //search students arraylist in db and print out any corresponding numbers in a new array
-        //if the array is still empty at the end, say the student number doesn't exist
+            for (int i = 0; i < students.size(); i++)
+            {
+                if (ID == students.get(i).getID())
+                {
+                    System.out.println(students.get(i).toString());
+                }
+            }
     }
 }

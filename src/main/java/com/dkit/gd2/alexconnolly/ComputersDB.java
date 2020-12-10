@@ -18,7 +18,7 @@ public class ComputersDB
 
     public static void loadComputersFromFile()
     {
-        try(Scanner computerFile = new Scanner(new BufferedReader(new FileReader("Computers.txt"))))
+        try(Scanner computerFile = new Scanner(new BufferedReader(new FileReader("src/main/Computers.txt"))))
         {
             while(computerFile.hasNextLine())
             {
