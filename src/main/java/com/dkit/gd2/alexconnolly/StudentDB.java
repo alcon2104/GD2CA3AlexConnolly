@@ -15,7 +15,8 @@ public class StudentDB implements RecordChanges
         this.students = students;
     }
 
-    public static void loadStudentsFromFile() {
+    public void loadStudentsFromFile()
+    {
         try (Scanner studentFile = new Scanner(new BufferedReader(new FileReader("Students.txt"))))
         {
             while (studentFile.hasNextLine())
@@ -41,18 +42,20 @@ public class StudentDB implements RecordChanges
 
     private static ArrayList<String> readStudentLoans(String[] data)
     {
-        ArrayList<String> loans = new ArrayList<>();
-        for (int i = 0; i < data.length; i++) {
-            loans.add(data[i]);
-        }
-        return loans;
+            ArrayList<String> loans = new ArrayList<>();
+            for (int i = 0; i < data.length; i++)
+            {
+                loans.add(data[i]);
+            }
+            return loans;
     }
 
     public static void saveStudentsToFile()
     {
         try (BufferedWriter studentFile = new BufferedWriter(new FileWriter("Students.txt")))
         {
-            if(students != null) {
+            if(students != null)
+            {
                 for (Student student : students)
                     studentFile.write(student.getName() + student.getID() + student.getEmail() + student.getTelephone() + student.getLoans());
                 studentFile.write("\n");
@@ -67,19 +70,22 @@ public class StudentDB implements RecordChanges
     @Override
     public void addNew()
     {
-        System.out.println("Please Enter the new Student's details below, after every new detail, please press enter");
-        System.out.println("Name:");
-        String newName = keyboard.nextLine();
-        String newID = generateStudentID();
-        System.out.println("Email:");
-        String newEmail = keyboard.nextLine();
-        System.out.println("Phone Number");
-        String newTelephone = keyboard.nextLine();
-        Student newStudent = new Student(newName, newID, newEmail, newTelephone);
+        if(students != null)
+        {
+            System.out.println("Please Enter the new Student's details below, after every new detail, please press enter");
+            System.out.println("Name:");
+            String newName = keyboard.nextLine();
+            String newID = generateStudentID();
+            System.out.println("Email:");
+            String newEmail = keyboard.nextLine();
+            System.out.println("Phone Number");
+            String newTelephone = keyboard.nextLine();
+            Student newStudent = new Student(newName, newID, newEmail, newTelephone);
 
-        students.add(newStudent);
+            students.add(newStudent);
 
-        saveStudentsToFile();
+            saveStudentsToFile();
+        }
     }
 
     public static String generateStudentID()
@@ -97,86 +103,89 @@ public class StudentDB implements RecordChanges
     }
 
     @Override
-    public void edit() {
-        System.out.println("Enter the ID of the student you wish to edit");
-        String editID = keyboard.nextLine();
-        System.out.println("Select the entry you'd like to change\n0 - QUIT\t1 - ID \t2 - Name\n3 - Email\t4 - Telephone");
-        boolean loop = true;
-        EditStudentOptions menuChoice;
-        int selected;
-        while (loop) {
-            selected = keyboard.nextInt();
-            keyboard.nextLine();
-            menuChoice = EditStudentOptions.values()[selected];
-            try {
-                switch (menuChoice) {
-                    case QUIT:
-                        loop = false;
-                        break;
-                    case ID:
-                        System.out.println("Enter the new ID");
-                        for(int i = 0; i < students.size(); i++)
-                        {
-                            if(students.get(i).getID() == editID)
+    public void edit()
+    {
+        if(students != null)
+        {
+            System.out.println("Enter the ID of the student you wish to edit");
+            String editID = keyboard.nextLine();
+            System.out.println("Select the entry you'd like to change\n0 - QUIT\t1 - ID \t2 - Name\n3 - Email\t4 - Telephone");
+            boolean loop = true;
+            EditStudentOptions menuChoice;
+            int selected;
+            while (loop)
+            {
+                selected = keyboard.nextInt();
+                keyboard.nextLine();
+                menuChoice = EditStudentOptions.values()[selected];
+                try
+                {
+                    switch (menuChoice)
+                    {
+                        case QUIT:
+                            loop = false;
+                            break;
+                        case ID:
+                            System.out.println("Enter the new ID");
+                            for (int i = 0; i < students.size(); i++)
                             {
-                                String newID = keyboard.nextLine();
-                                students.get(i).setName(newID);
-                                System.out.println("Edit Successful.");
+                                if (students.get(i).getID() == editID)
+                                {
+                                    String newID = keyboard.nextLine();
+                                    students.get(i).setName(newID);
+                                    System.out.println("Edit Successful.");
+                                }
+                                else
+                                {
+                                    System.out.println(Colours.RED + "The Student ID you entered already exists, and so could not be added" + Colours.RESET);
+                                }
+                                System.out.println("Returning you to the Booking menu...");
                             }
-                            else
+                        case NAME:
+                            for (int i = 0; i <= students.size(); i++)
                             {
-                                System.out.println(Colours.RED+"The Student ID you entered already exists, and so could not be added"+Colours.RESET);
+                                System.out.println("Enter the new name");
+                                if (students.get(i).getID() == editID)
+                                {
+                                    String newName = keyboard.nextLine();
+                                    students.get(i).setName(newName);
+                                    System.out.println("Edit Successful.");
+                                }
+                                System.out.println("Returning you to the Booking menu...");
                             }
-                            System.out.println("Returning you to the Booking menu...");
-                        }
-                    case NAME:
-                        for(int i = 0; i <= students.size(); i++)
-                        {
-                            System.out.println("Enter the new name");
-                            if(students.get(i).getID() == editID)
-                            {
-                                String newName = keyboard.nextLine();
-                                students.get(i).setName(newName);
-                                System.out.println("Edit Successful.");
-                            }
-                            System.out.println("Returning you to the Booking menu...");
-                        }
 
-                    case EMAIL:
-                        for(int i = 0; i <= students.size(); i++)
-                        {
-                            System.out.println("Enter the new email");
-                            if(students.get(i).getID() == editID)
+                        case EMAIL:
+                            for (int i = 0; i <= students.size(); i++)
                             {
-                                String newEmail = keyboard.nextLine();
-                                students.get(i).setEmail(newEmail);
-                                System.out.println("Edit Successful.");
+                                System.out.println("Enter the new email");
+                                if (students.get(i).getID() == editID)
+                                {
+                                    String newEmail = keyboard.nextLine();
+                                    students.get(i).setEmail(newEmail);
+                                    System.out.println("Edit Successful.");
+                                }
+                                System.out.println("Returning you to the Booking menu...");
                             }
-                            System.out.println("Returning you to the Booking menu...");
-                        }
 
-                    case TELEPHONE:
-                        for(int i = 0; i <= students.size(); i++)
-                        {
-                            System.out.println("Enter the new telephone number");
-                            if(students.get(i).getID() == editID)
+                        case TELEPHONE:
+                            for (int i = 0; i <= students.size(); i++)
                             {
-                                String newNumber = keyboard.nextLine();
-                                students.get(i).setName(newNumber);
-                                System.out.println("Edit Successful.");
+                                System.out.println("Enter the new telephone number");
+                                if (students.get(i).getID() == editID)
+                                {
+                                    String newNumber = keyboard.nextLine();
+                                    students.get(i).setName(newNumber);
+                                    System.out.println("Edit Successful.");
+                                }
+                                System.out.println("Returning you to the Booking menu...");
                             }
-                            System.out.println("Returning you to the Booking menu...");
-                        }
 
+                    }
+                } catch (IllegalArgumentException e) {
+                    System.out.println(Colours.RED + "Selection out of range, try again" + Colours.RESET);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println(Colours.RED + "Selection out of range, try again" + Colours.RESET);
                 }
-            }
-            catch (IllegalArgumentException e)
-            {
-                System.out.println(Colours.RED+"Selection out of range, try again"+Colours.RESET);
-            }
-            catch (ArrayIndexOutOfBoundsException e)
-            {
-                System.out.println(Colours.RED+"Selection out of range, try again"+Colours.RESET);
             }
         }
     }
@@ -184,51 +193,54 @@ public class StudentDB implements RecordChanges
     @Override
     public void delete()
     {
-        System.out.println("Enter the ID of the student you wish to delete");
-        String deleteID = keyboard.nextLine();
-        try
+        if(students != null)
         {
-            System.out.println(Colours.RED+"Are you sure you want to delete the student?\n1 - Yes\t2 - No"+Colours.RESET);
-            int deleteChoice = keyboard.nextInt();
-            keyboard.nextLine();
-            if (deleteChoice == 1)
-            {
-                for(int i = 0; i <= students.size(); i++)
-                {
-                    if(students.get(i).getID() == deleteID)
+            System.out.println("Enter the ID of the student you wish to delete");
+            String deleteID = keyboard.nextLine();
+            try {
+                System.out.println(Colours.RED + "Are you sure you want to delete the student?\n1 - Yes\t2 - No" + Colours.RESET);
+                int deleteChoice = keyboard.nextInt();
+                keyboard.nextLine();
+                if (deleteChoice == 1) {
+                    for (int i = 0; i <= students.size(); i++)
                     {
-                        students.remove(students.get(i));
+                        if (students.get(i).getID() == deleteID)
+                        {
+                            students.remove(students.get(i));
+                        }
+                        System.out.println("The booking has been deleted.");
+                        System.out.println("Returning you to the Booking menu...");
                     }
-                    System.out.println("The booking has been deleted.");
-                    System.out.println("Returning you to the Booking menu...");
+                }
+                else if (deleteChoice == 2)
+                {
+                    System.out.println("Returning you to the main menu...");
                 }
             }
-            else if (deleteChoice == 2)
+            catch (IllegalArgumentException e)
             {
-                System.out.println("Returning you to the main menu...");
+                System.out.println(Colours.RED + "Selection out of range, try again" + Colours.RESET);
             }
-        }
-        catch (IllegalArgumentException e)
-        {
-            System.out.println(Colours.RED+"Selection out of range, try again"+Colours.RESET);
-        }
-        catch (ArrayIndexOutOfBoundsException e)
-        {
-            System.out.println(Colours.RED+"Selection out of range, try again"+Colours.RESET);
+            catch (ArrayIndexOutOfBoundsException e)
+            {
+                System.out.println(Colours.RED + "Selection out of range, try again" + Colours.RESET);
+            }
         }
     }
 
     @Override
     public void print()
     {
-        System.out.println("Enter the ID of the student you wish to view");
-        String ID = keyboard.nextLine();
+        if(students != null)
+        {
+            System.out.println("Enter the ID of the student you wish to view");
+            String ID = keyboard.nextLine();
             for (int i = 0; i < students.size(); i++)
             {
-                if (ID == students.get(i).getID())
-                {
+                if (ID == students.get(i).getID()) {
                     System.out.println(students.get(i).toString());
                 }
             }
+        }
     }
 }

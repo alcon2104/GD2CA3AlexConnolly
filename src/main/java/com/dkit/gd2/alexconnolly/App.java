@@ -23,7 +23,7 @@ public class App {
         BookingsDB bookingsDB = new BookingsDB();
         ComputersDB computersDB = new ComputersDB();
         studentDB.loadStudentsFromFile();
-        BookingsDB.loadBookingsFromFile();
+        bookingsDB.loadBookingsFromFile();
         ComputersDB.loadComputersFromFile();
         doMainMenuLoop(studentDB, bookingsDB, computersDB);
         StudentDB.saveStudentsToFile();
