@@ -9,7 +9,7 @@ public class Student
     private static Scanner keyboard = new Scanner(System.in);
 
     private String name;
-    private static String ID;
+    private String ID;
     private String email;
     private String telephone;
     private ArrayList<String> loans;
@@ -62,9 +62,9 @@ public class Student
         this.name = name;
     }
 
-    public static void setID(String ID)
+    public void setID(String ID)
     {
-        Student.ID = ID;
+        this.ID = ID;
     }
 
     public void setEmail(String email)
@@ -77,6 +77,16 @@ public class Student
         this.telephone = telephone;
     }
 
-
+    @Override
+    public String toString()
+    {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", ID='" + ID + '\'' +
+                ", email='" + email + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", loans=" + loans +
+                '}';
+    }
 }
 
