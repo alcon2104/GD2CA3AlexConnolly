@@ -50,10 +50,10 @@ public class App {
                         break;
                     case STUDENT_MENU:
                         System.out.println("Calling student menu");
-                        studentMenu();
+                        studentMenu(studentDB);
                         break;
                     case BOOKINGS_MENU:
-                        bookingsMenu();
+                        bookingsMenu(bookingsDB);
                         break;
                     default:
                         System.out.println("Selection out of range, please try again");
@@ -71,7 +71,7 @@ public class App {
         System.out.println(Colours.GREEN+"Thank you for using the SCMA!"+Colours.RESET);
     }
 
-    public static void studentMenu() {
+    public static void studentMenu(StudentDB studentDB) {
         System.out.println(Colours.GREEN+"Welcome to the Student menu!\nSelect one of the options below:"+Colours.RESET);
         boolean loop = true;
         StudentMenuOptions menuChoice;
@@ -83,7 +83,6 @@ public class App {
                 selected = keyboard.nextInt();
                 keyboard.nextLine();
                 menuChoice = StudentMenuOptions.values()[selected];
-                StudentDB studentDB = new StudentDB();
                 switch (menuChoice) {
                     case QUIT:
                         loop = false;
@@ -113,7 +112,7 @@ public class App {
         System.out.println(Colours.GREEN+"Returning to the main menu..."+Colours.RESET);
     }
 
-    public static void bookingsMenu() {
+    public static void bookingsMenu(BookingsDB bookingsDB) {
         System.out.println(Colours.GREEN+"Welcome to the Bookings menu!\nSelect one of the options below:"+Colours.RESET);
         boolean loop = true;
         BookingMenuOptions menuChoice;
@@ -125,7 +124,6 @@ public class App {
                 selected = keyboard.nextInt();
                 keyboard.nextLine();
                 menuChoice = BookingMenuOptions.values()[selected];
-                BookingsDB bookingsDB = new BookingsDB();
                 switch (menuChoice) {
                     case QUIT:
                         loop = false;
@@ -146,9 +144,9 @@ public class App {
                         BookingsDB.printBookingsOneStudent();
                         break;
                     case RETURN_COMPUTER:
-                        //BookingsDB.returnComputer();
+                        bookingsDB.returnComputer();
                     case RETURN_BOOKING_LENGTH:
-                        //BookingsDB.bookingLength();
+                        bookingsDB.bookingLength();
                     case PRINT_BOOKED_MACHINES:
                         BookingsDB.findNumComputersBooked();
                         break;

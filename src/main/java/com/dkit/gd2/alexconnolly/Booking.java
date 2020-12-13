@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Bookings
+public class Booking
 {
     private static Scanner keyboard = new Scanner(System.in);
 
@@ -16,14 +16,14 @@ public class Bookings
     private String assetTag;
     private String studentID;
 
-    public Bookings(int bookingID, String bookDate, String returnDate,
-                    String computerType, String assetTag, String studentID)
+    public Booking(int bookingID, String bookDate, String returnDate,
+                   String computerType, String assetTag, String studentID)
     {
         this.bookingID = bookingID;
         this.bookDate = bookDate;
         this.returnDate = returnDate;
         this.computerType = computerType;
-        this.assetTag = Computer.getAssetTag();
+        this.assetTag = assetTag;
         this.studentID = studentID;
     }
 
